@@ -1,1 +1,223 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<style>
+body{
+    background-color:#f4f4f4;
+}
+#Reim{
+    border:none;
+    margin:10%;
+    padding:5%;
+    margin-top:50%;
+    border-radius:5%;
+    background-color:white;
+     box-shadow: -8px -8px 15px gray;
+}
+#img{
+    width:10%;
+    border-radius:40%;
+    position:absolute ;
+    top:30%;
+    right:13%;
+}
+#top{
+    background: #0d161b;
+    padding: 10px 20px;
+    min-height: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+h2{
+    color:white;
+    font-size:20px;
+    font-family:"georgia",serif;
+}
+p{
+    font-weight:bold;
+    font-family:"Georgia",serif;
+}
+h1{
+    font-size:25px;
+    font-family:"Georgia",serif;
+    text-align:center ;
+}
+input{
+    font-weight:bold;
+    padding:3%;
+    font-family:"Georgia",serif;
+}
+#button{
+    padding:5%;
+    background-color:#007BA7;
+    border:none ;
+    font-weight:bold;
+    margin-top:10%;
+    margin-bottom:5%;
+    
+}
+#button:hover{
+    background-color:#4682B4;
+}
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reimfinder</title>
+      <link href="https://fonts.googleapis.com/css?family=Modak" rel="stylesheet">
+</head>
+<body>
+<section id="top">
+    <h2>Made by Faraz</h2>
+    <img id="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Achaemenid_Falcon.svg/794px-Achaemenid_Falcon.svg.png">
+</section>
+<section id="Reim">
+    <h1>Reimfinder</h1>
+    <p>Geben Sie ein Wort ein, um Reime zu finden:</p>
+    <input type="text" id="inputWord" placeholder="Wort eingeben (Z.b:Haus)">
+    <button id="button" onclick="findRhymes()">Reime finden</button>
+    <div id="output"></div>
+</section>
+    <script src="script.js">const rhymeDictionary = {
+    "Haus": ["Maus", "Raus", "Laus"],
+    "Baum": ["Raum", "Traum"],
+    "Wagen": ["Sagen", "Tragen", "Fragen"],
+    "Maus":["Haus","Raus","Laus"],
+    "Wort": ["Hort", "Fort", "Sport"],
+    "Spiel": ["Ziel", "Profil", "Stiel"],
+    "Tag": ["Lag", "Sag", "Mag"],
+    "Nacht": ["Macht", "Pracht", "Gedacht"],
+    "Licht": ["Dicht", "Pflicht", "Sicht"],
+    "Blau": ["Grau", "Tau"],
+    "Rot": ["Boot", "Not", "Trotz"],
+    "Hand": ["Land", "Sand", "Wand"],
+    "Wasser": ["Klasse", "Masse", "Rasse"],
+    "Klang": ["Gang", "Sang", "Zwang"],
+    "Bild": ["Wild", "Schild", "Kind"],
+    "Wein": ["Sein", "Stein", "Fein"],
+    "Brot": ["Rot", "Tod", "Not"],
+    "Grün": ["Hin", "Drin", "Gin"],
+    "Reise": ["Leise", "Weise", "Kreise"],
+    "Lachen": ["Machen", "Wachen", "Brachen"],
+    "Rat": ["Tat", "Sat", "Matte"],
+    "Fluss": ["Muss", "Kuss", "Schuss"],
+    "Stadt": ["Rat", "Platt", "Satt"],
+    "Weg": ["Steg", "Leg", "Peg"],
+    "Berg": ["Zwerg", "Merg", "Erg"],
+    "Sturm": ["Turm", "Wurm"],
+    "Strand": ["Land", "Hand", "Pfand"],
+    "Sonne": ["Wonne", "Konne", "Monne"],
+    "Meer": ["Leer", "Heer", "Verkehr"],
+    "Himmel": ["Simmel", "Dümmel", "Rimmel"],
+    "Stern": ["Fern", "Kern", "Lern"],
+    "Regen": ["Segen", "Wegen", "Pflegen"],
+    "Wind": ["Find", "Sind", "Kind"],
+    "Schnee": ["See", "Steh", "Geh"],
+    "Blatt": ["Glat", "Rat", "Platt"],
+    "Zug": ["Flug", "Mug", "Rug"],
+    "Flugzeug": ["Krieg", "Sieg", "Fliegt"],
+    "Vogel": ["Logel", "Kogel", "Sogel"],
+    "Buch": ["Such", "Duch", "Ruch"],
+    "Stuhl": ["Hul", "Null", "Schul"],
+    "Tisch": ["Fisch", "Wisch", "Dich"],
+    "Tür": ["Mir", "Dir", "Wir"],
+    "Lied": ["Miet", "Sieht", "Viert"],
+    "Kraft": ["Saft", "Haft", "Geschafft"],
+    "Licht": ["Sicht", "Pflicht", "Gericht"],
+    "Traum": ["Baum", "Kaum", "Raum"],
+    "Laut": ["Haut", "Braut", "Vertraut"],
+    "Gold": ["Alt", "Gehalt", "Gewalt"],
+    "Mut": ["Gut", "Wut", "Flut"],
+    "Band": ["Hand", "Land", "Sand"],
+    "Hart": ["Start", "Smart", "Art"],
+    "Fall": ["Ball", "Knall", "Mall"],
+    "Dicht": ["Sicht", "Verzicht", "Licht"],
+    "Hoffnung": ["Jung", "Sprung", "Lung"],
+    "Freund": ["Feind", "Reimt", "Deint"],
+    "Klang": ["Gang", "Sang", "Drang"],
+    "Rausch": ["Lausch", "Brausch", "Tausch"],
+    "Mutig": ["Gutig", "Kutig", "Butig"],
+    "Klar": ["Bar", "Spar", "Nar"],
+    "Schmal": ["Tal", "Qual", "Mal"],
+    "Reich": ["Teich", "Vergleich", "Erreich"],
+    "Groß": ["Moos", "Los", "Tos"],
+    "Witz": ["Sitz", "Blitz", "Schwitz"],
+    "Stark": ["Park", "Mark", "Bark"],
+    "Heiter": ["Breiter", "Leiter", "Reiter"],
+    "Frei": ["Dabei", "Ei", "Schlüsselbein"],
+    "Grau": ["Bau", "Schau", "Blau"],
+    "Schau": ["Grau", "Tau", "Stau"],
+    "Froh": ["Klo", "So", "Echo"],
+    "Weit": ["Seit", "Bereit", "Dritte"],
+    "Hoch": ["Loch", "Koch", "Poch"],
+    "Schön": ["Gehn", "Stehn", "Sehn"],
+    "Rund": ["Hund", "Bund", "Mund"],
+    "Klein": ["Rein", "Bein", "Fein"],
+    "Lang": ["Gang", "Zwang", "Drang"],
+    "Schwer": ["Meer", "Verkehr", "Lehr"],
+    "Tief": ["Lief", "Rief", "Schlief"],
+    "Hell": ["Schnell", "Stell", "Fell"],
+    "Kurz": ["Sturz", "Schmerz", "Herz"],
+    "Nah": ["Da", "Spa", "Opa"],
+    "Früh": ["Müh", "Ruh", "Shuh"],
+    "Dunkel": ["Funkel", "Munkel", "Dschungel"],
+    "Jung": ["Sprung", "Lung", "Zung"],
+    "Alt": ["Gehalt", "Gewalt", "Gold"],
+    "Warm": ["Arm", "Schwarm", "Farm"],
+    "Kalt": ["Gehalt", "Gewalt", "Alt"],
+    "Neu": ["Scheu", "Reu", "Bleu"],
+    "Leicht": ["Gereicht", "Bereicht", "Erreicht"],
+    "Schnell": ["Hell", "Erzähl", "Stell"],
+    "Besser": ["Messer", "Lesser", "Presser"],
+ "Schlecht": ["Recht", "Gerecht", "Ungeflecht"],
+    "Viel": ["Spiel", "Ziel", "Profil"],
+    "Wenig": ["König", "Ewig", "Einig"],
+    "Teuer": ["Freuer", "Neuer", "Feuer"],
+    "Billig": ["Willig", "Stillig", "Fillig"],
+    "Eng": ["Sang", "Klang", "Zwang"],
+    "Weich": ["Reich", "Vergleich", "Bleich"],
+    "Laut": ["Haut", "Braut", "Vertraut"],
+    "Leise": ["Reise", "Weise", "Kreise"],
+    "Echt": ["Gerecht", "Recht", "Schlecht"],
+    "Falsch": ["Walsh", "Palsch", "Halsch"],
+};
+const updatedRhymeDictionary = {...rhymeDictionary};
 
+for(let key in rhymeDictionary) {
+    let array = rhymeDictionary[key];
+    for(let word of array) {
+        if(!updatedRhymeDictionary[word]) { 
+            updatedRhymeDictionary[word] = [...array.filter(w => w !== word), key];
+        }
+    }
+}
+
+function findRhymes() {
+    const inputWord = document.getElementById('inputWord').value;
+    const outputDiv = document.getElementById('output');
+    
+    const rhymes = updatedRhymeDictionary[inputWord];
+    
+    if (rhymes) {
+        outputDiv.innerHTML = `<p>Reime für <strong>${inputWord}</strong>: ${rhymes.join(', ')}</p>`;
+    } else {
+        outputDiv.innerHTML = `<p>Keine Reime für <strong>${inputWord}</strong> gefunden.</p>`;
+    }
+}
+function findRhymes() {
+    const inputWord = document.getElementById('inputWord').value;
+    const outputDiv = document.getElementById('output');
+    
+    const rhymes = rhymeDictionary[inputWord];
+    
+    if (rhymes) {
+        outputDiv.innerHTML = `<p>Reime für <strong>${inputWord}</strong>: ${rhymes.join(', ')}</p>`;
+    } else {
+        outputDiv.innerHTML = `<p>Keine Reime für <strong>${inputWord}</strong> gefunden.</p>`;
+    }
+}</script>
+</body>
+</html>
